@@ -2,6 +2,6 @@
 /**
  * main - main function
  */
-int main()
+int main(void)
 {
 }
