@@ -23,7 +23,7 @@ int main(void)
                 break;
         }
 
-        line[strcspn(line, "\n")] = '\0';
+        line[nread - 1] = '\0';
 
         command  = strtok(line, " ");
 
