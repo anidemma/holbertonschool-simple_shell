@@ -32,9 +32,20 @@ void handle_commands_arr(char **commands_arr)
 }
 
 
+void split(char *command, char **args)
+{
+	int i = 0;
+	char *token = strtok(command, " \t");
 
-
-
+	args[i] = NULL;
+	while (token != NULL && i < MAX_LEN - 1)
+	{
+		args[i] = token;
+		token = strtok(NULL, " \t");
+		i++;
+	}
+	args[i] = NULL;
+}
 
 
 

@@ -1,13 +1,69 @@
 #include "main.h"
 
+/**
+ * handle_path - function for handling path
+ * @args: arguments
+ * @path: path
+ * @path_env: environment path
+ * @flag: checks that if found
+ * 
+ * Return - void
+*/
+void handle_path(char **args, char **path, char **path_env, int *found)
+{
+
+}
+
 
 /**
  * handle_command - command handler
- * @u_command: command
+ * @command: command
+ *
+ * Return - void
 */
 void handle_command(char *command)
 {
+	char *args[MAX_LEN];
+	char *path = NULL;
+	char *path_env = NULL;
+	int flag = 0;
 
+	set_env(&path, &path_env);
+	split(command, args);
+
+	if (args[0] == NULL)
+	{
+		free(path_env);
+		free(path);
+		return;
+	}
+	
+	if (strchr(args[0], '/') == NULL)
+	{
+		if (access(args[0], X_OK) == -1)
+		{
+			fprintf(stderr, "./hsh: 1: %s: not found\n", args[0]);
+			free(path_env);
+			free(path);
+			exit(123);
+		}
+		free(path_env);
+		free(path);
+		path = strdup(args[0]);
+		flag = 1;
+	}
+	else
+	{
+		handle_path(args, &path, &path_env, &flag);
+	}
+	if (flag == 0)
+	{
+		fprintf(stderr, "./hsh: 1: %s: not found\n", args[0]);
+		free(path);
+		exit(123);
+	}
+	execute(args, path);
+	free(path);
 }
 
 
