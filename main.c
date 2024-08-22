@@ -1,37 +1,11 @@
 #include "main.h"
-
 /**
- * handle_commands_array - func for handling array of commands
- * @commands_array: array of commands
- */
-void handle_commands_arr(char **commands_arr)
-{
-	char *command;
-	int i = 0;
-
-	if (strcmp(commands_arr[i], "env") == 0)
-	{
-		print_environ();
-	}
-	else if (strcmp(comands_arr[i], "exit") == 0)
-	{
-		exit(0);
-	}
-	else
-	{
-		for (; commands_arr[i]; i++)
-		{
-			command = commands_arr[i];
-			if (strcmp(command, "exit") == 0 && i > 0)
-			{
-				exit(1);
-				handle_command(command);
-			}
-		}
-	}
-}
-
-
+ * split - function for parsing command
+ * @command: command to be parsed
+ * @args: arguments to command
+ * 
+ * Return - void
+*/
 void split(char *command, char **args)
 {
 	int i = 0;
@@ -46,11 +20,6 @@ void split(char *command, char **args)
 	}
 	args[i] = NULL;
 }
-
-
-
-
-
 
 /**
  * split_newline - seperates by newline
@@ -70,22 +39,45 @@ void split_newline(char *commands, char **commands_arr)
 		commands_arr[i] = command;
 		command = strtok(NULL, "\n");
 	}
+	commands_arr[i] = NULL;
 }
 
+/**
+ * execute - function to  execute the command
+ * @args: arguments to path
+ * @path: path
+ * 
+ * Return - void
+ */
+void execute (char **args, char *path)
+{
+	pid_t pid;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork failed");
+		exit(EXIT_FAILURE);
+	}
+	else if (pid == 0)
+	{
+		if (execve(path, args, environ) == -1)
+		{
+			free(path);
+			fprintf(stderr, "./hsh: 1: %s: not found\n", args[0]);
+			exit(EXIT_FAILURE);
+		}
+	}
+	else
+	{
+		if (wait(NULL) == -1)
+		{
+			free(path);
+			perror("wait failed");
+			exit(EXIT_FAILURE);
+		}
+	}
+}
 
 /**
  * main - main function
