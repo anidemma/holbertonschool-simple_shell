@@ -24,7 +24,7 @@ void print_environ(void)
 */
 void set_env(char **path_env, char **path)
 {
-	int i;
+	int i = 0;
 
 	*path = malloc(MAX_LEN);
 	if (*path == NULL)
