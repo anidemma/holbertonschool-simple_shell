@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * print_environ - func for printing environment
+ * print_environ - function for printing environment
  *
  * Return - void
 */
@@ -11,7 +11,7 @@ void print_environ(void)
 
 	for (i = 0; environ[i]; i++)
 	{
-		printf(environ[i]);
+		printf("%s", environ[i]);
 	}
 }
 
