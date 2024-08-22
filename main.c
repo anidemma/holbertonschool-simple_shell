@@ -86,14 +86,18 @@ void execute (char **args, char *path)
  */
 int main(void)
 {
-	char *commands[MAX_LEN];
+	char commands[MAX_LEN];
 	char *commands_arr[MAX_LEN];
 	ssize_t nread;
 
 	while (1)
 	{
 		nread = read(STDIN_FILENO, commands, MAX_LEN);
-		exit(EXIT_FAILURE);
+		if (nread == -1)
+		{
+			perror("Error reading command");
+			exit(EXIT_FAILURE);
+		}
 		else if (nread == 0)
 		{
 			break;
@@ -101,7 +105,7 @@ int main(void)
 		commands[nread] = '\0';
 
 		split_newline(commands, commands_arr);
-		handle_commands_array(comands_arr);
+		handle_commands_arr(commands_arr);
 	}
 	return (0);
 }
