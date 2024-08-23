@@ -13,7 +13,7 @@
 
 extern char **environ;
 
-char **dvider(char *buffer, char **arr);
+char **divider(char *buffer, char **arr);
 char *_getline(void);
 void _exec(char *buffer, char **argv);
 void find_path(char *buffer, char **argv);
