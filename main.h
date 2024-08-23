@@ -1,25 +1,21 @@
 #ifndef MAIN_H
 #define MAIN_H
 #include <stdio.h>
+#include <errno.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <errno.h>
+#include <sys/wait.h>
+#include <fcntl.h>
+#include <stddef.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-
 extern char **environ;
 
-#define MAX_LEN 100
-#define PROMPT ">> "
-#define PATH "PATH="
-
-void execute (char **args, char *path);
-void split_newline(char *commands, char **commands_arr);
-void split(char *command, char **args);
-void handle_commands_arr(char **commands_arr);
-void handle_command(char *command);
-void handle_path(char **args, char **path, char **path_environ, int *flag);
-void set_env(char **path_env, char **path);
-void print_environ(void);
+char **divider(char *buffer, char **arr);
+char *_getline(void);
+void _exec(char *buffer, char **argv);
+void find_path(char *buffer, char **argv);
+int handle_path(char *buffer);
+void print_env(char *buffer);
 #endif
