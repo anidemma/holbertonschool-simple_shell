@@ -11,10 +11,9 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-
 extern char **environ;
 
-char **divider(char *buffer, char **arr);
+char **dvider(char *buffer, char **arr);
 char *_getline(void);
 void _exec(char *buffer, char **argv);
 void find_path(char *buffer, char **argv);
