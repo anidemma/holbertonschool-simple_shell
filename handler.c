@@ -9,7 +9,7 @@
  * 
  * Return - void
 */
-void handle_path(char **args, char **path, char **path_env, int *found)
+void handle_path(char **args, char **path, char **path_environ, int *flag)
 {
 	char *token = NULL;
 
@@ -103,7 +103,7 @@ void handle_commands_arr(char **commands_arr)
 	{
 		print_environ();
 	}
-	else if (strcmp(comands_arr[i], "exit") == 0)
+	else if (strcmp(commands_arr[i], "exit") == 0)
 	{
 		exit(0);
 	}
